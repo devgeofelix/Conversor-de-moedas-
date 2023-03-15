@@ -2,14 +2,20 @@ const button = document.getElementById("convert-button")
 const select = document.getElementById("dinheiro-select")
 
 
-const dolar = 5.2
-const euro = 6.5
-const bitcoin = 116.006
-
-const convertValue = () => {
+const convertValue = async () => {
+    
     const input = document.getElementById('input-real').value
     const realValorTexto = document.getElementById("real-valor-texto")
     const valorConvertido = document.getElementById("valor-convertido")
+
+    const data = await fetch ("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(response => response.json())
+    
+    const dolar = data.USDBRL.high
+    const euro = data.EURBRL.high
+    const bitcoin = data.BTCBRL.high
+
+
+    // BIBLIOTECA AXIOS
 
     realValorTexto.innerHTML = new Intl.NumberFormat('pt-BR',
         { style: "currency", currency: "BRL" }
